@@ -527,20 +527,23 @@ int main()
 		cout << endl
 			 << endl;
 		;
-		CoutCenteredXY("Please a while, we are calculating the shortest path for you....", 0, 0);
+		CoutCenteredXY("Please a while, we are calculating the shortest path for you....", 0, -20);
 		cout << endl
 			 << endl;
 		Animate();
 		system("cls");
 		dijkstra(adjacencyMatrix, c, d);
-		int e;
+		char e;
 		cout << endl;
-		CoutCentered("Enter 1 to continue", 0, 0);
+		CoutCentered("Enter X to Exit or any other key to continue...", 0, 0);
 		cin >> e;
 		fflush(stdin);
 		system("cls");
-		if (e == 0)
+		if (e == 'X' or e == 'x')
 			break;
+		CoutCenteredXY("Reloading Application...", 0, -20);
+		Animate();
+		system("cls");
 	}
 	return 0;
 }
