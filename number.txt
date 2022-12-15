@@ -1,0 +1,10 @@
+City       X   Y
+
+Srinagar- 61,15
+Shimla-   70,24
+New Delhi-70,33
+Kolkata-  138,51
+Thiruvana-61,85
+Mumbai   -46,60
+Chennai  -87,75
+Vijayawad-68,97
