@@ -44,7 +44,7 @@ vector<vector<int>> adjacencyMatrix = {{0, 10, 13, 18, 20, 19, 13, 8, 7, 18, 13,
 map<int, string> m{{1, "Kolkata"}, {2, "New Delhi"}, {3, "Jaipur"}, {4, "Hyderabad"}, {5, "Mumbai"}, {6, "Chennai"}, {7, "Vijaywada"}, {8, "Nagpur"}, {9, "Lucknow"}, {10, "Srinagar"}, {11, "Shimla"}, {12, "Chandigarh"}, {13, "Bhopal"}, {14, "Raipur"}, {15, "Bhubneshwar"}, {16, "Patna"}, {17, "Ranchi"}, {18, "Gandhinagar"}, {19, "Dispur"}, {20, "Bengaluru"}, {21, "Dehra Dun"}, {22, "Panaji"}, {23, "Thiruvananthapuram"}, {24, "Itanagar"}, {25, "Prayagraj"}};
 int NO_PARENT = -1;
 
-map<int, pair<int, int>> points{{1, {138, 51}}, {2, {70, 33}}, {3, {62, 38}}, {4, {79, 66}}, {5, {47, 60}}, {6, {88, 75}}, {7, {97, 68}}, {8, {81, 56}},{9,{88,39}},{10,{62,15}},{11,{62,15}},{12,{64,25}},{13,{75,48}},{14,{102,55}},{15,{126,57}},{16,{119,42}},{17,{117,49}},{18,{34,48}},{19,{162,41}},{20,{69,76}},{21,{76,27}},{22,{57,72}},{23,{70,85}},{24,{180,37}},{25,{97,43}}};
+map<int, pair<int, int>> points{{1, {138, 51}}, {2, {70, 33}}, {3, {62, 38}}, {4, {79, 66}}, {5, {47, 60}}, {6, {88, 75}}, {7, {97, 68}}, {8, {81, 56}}, {9, {88, 39}}, {10, {62, 15}}, {11, {62, 15}}, {12, {64, 25}}, {13, {75, 48}}, {14, {102, 55}}, {15, {126, 57}}, {16, {119, 42}}, {17, {117, 49}}, {18, {34, 48}}, {19, {162, 41}}, {20, {69, 76}}, {21, {76, 27}}, {22, {57, 72}}, {23, {70, 85}}, {24, {180, 37}}, {25, {97, 43}}};
 
 void CoutCentered(string text, int x, int endll)
 {
@@ -280,7 +280,8 @@ void printPath(int currentVertex, vector<int> parents)
 void printSolution(int startVertex, int endvertex, vector<int> distances, vector<int> parents)
 {
 	int nVertices = distances.size();
-	cout<<endl<<endl;
+	cout << endl
+		 << endl;
 	CoutCentered("Google Maps", 0, 0);
 	cout << endl
 		 << endl;
@@ -305,7 +306,7 @@ void printSolution(int startVertex, int endvertex, vector<int> distances, vector
 			cout << endl;
 			CoutCentered(s, -28, 0);
 			printPath(vertexIndex, parents);
-			path=path.substr(0,path.length()-4);
+			path = path.substr(0, path.length() - 4);
 			cout << "  " << path << endl;
 			printPathInMap(pt);
 			path.clear();
@@ -492,14 +493,133 @@ void loading(int n, int dots) // n is the number of times the animation will run
 		k++;
 	}
 }
-
+bool signin(string eid, string pass)
+{
+	ifstream file;
+	file.open("ascii.txt");
+	if (!file.is_open())
+	{
+		cout << "Unable to open the file." << endl;
+		return false;
+	}
+	string line;
+	int i = 0;
+	while (getline(file, line))
+	{
+		string str = eid + "-" + pass;
+		if (str == line)
+		{
+			return true;
+		}
+	}
+	file.close();
+	return false;
+}
+void createaccount()
+{
+	fstream f;
+	system("cls");
+	ofstream fout;
+	ifstream fin;
+	fin.open("ascii.txt");
+	string eid, pass, str;
+	fout.open("ascii.txt", ios::app);
+	CoutCenteredXY("Google Authentication", 0, -10);
+	cout << endl;
+	CoutCentered("Enter your New Email-ID : ", -20, 0);
+	cin >> eid;
+	int a = 0;
+	for (int i = 0; i < eid.length(); i++)
+	{
+		if (eid[i] == '@')
+		{
+			a = 1;
+		}
+	}
+	if (a == 0)
+	{
+		CoutCentered("Invalid Email ID !!!!", 0, 1);
+		Sleep(1000);
+		createaccount();
+	}
+	cout << endl;
+	CoutCentered("Enter your New Password : ", -20, 0);
+	cin >> pass;
+	if (pass.length() <= 8)
+	{
+		CoutCentered("Invalid Password , Password too short !!!!", 0, 1);
+		Sleep(1000);
+		createaccount();
+	}
+	str = eid + '-' + pass;
+	if (fin.is_open())
+		fout << "\n"
+			 << str;
+	CoutCentered("Account Created Successfully.....", 0, 1);
+	CoutCentered("Returning to Login Screen....", 0, 0);
+	Sleep(1000);
+	fin.close();
+	fout.close();
+}
+bool auth()
+{
+	system("cls");
+	GoogleLogo();
+	cout << endl;
+	CoutCentered("-----------------------------------------", 0, 1);
+	CoutCentered("|          Sign-in With Google            |", 0, 1);
+	CoutCentered("-----------------------------------------", 0, 1);
+	cout << endl;
+	CoutCentered("-----------------------------------------", 0, 1);
+	CoutCentered("|          Create New Account            |", 0, 1);
+	CoutCentered("-----------------------------------------", 0, 1);
+	CoutCentered("Press 1 to Sign-in or 2 To create New account....", 0, 0);
+	int a;
+	cin >> a;
+	if (a == 2)
+	{
+		createaccount();
+	}
+	system("cls");
+	string eid, pass;
+	CoutCenteredXY("Google Authentication", 0, -10);
+	cout << endl;
+	CoutCentered("Enter your Email-ID : ", -20, 0);
+	cin >> eid;
+	int b= 0;
+	for (int i = 0; i < eid.length(); i++)
+	{
+		if (eid[i] == '@')
+		{
+			b = 1;
+		}
+	}
+	if (b == 0)
+	{
+		CoutCentered("Invalid Email ID !!!!", 0, 1);
+		Sleep(1000);
+		createaccount();
+	}
+	cout << endl;
+	CoutCentered("Enter your Password : ", -20, 0);
+	cin >> pass;
+	cout << endl;
+	if (signin(eid, pass))
+	{
+		CoutCentered("Authenticated Successfully", 0, 1);
+	}
+	else
+	{
+		CoutCentered("Email ID or password Incorrect , Try Again..", 0, 0);
+		Sleep(1000);
+		auth();
+	}
+	Sleep(1000);
+	return true;
+}
 int main()
 {
-	GoogleLogo();
-	string s;
-	cout<<endl;
-	CoutCentered("Press Enter to continue", 0, 0);
-	cin.ignore();
+	auth();
 	system("cls");
 	GoogleLogo();
 	Animate();

@@ -1,26 +1,53 @@
-#include <stdio.h>
-#include <Windows.h>
+// A dynamic programming based
+// solution for 0-1 Knapsack problem
+#include <bits/stdc++.h>
+using namespace std;
 
-int main(void)
+// A utility function that returns
+// maximum of two integers
+int max(int a, int b) { return (a > b) ? a : b; }
+
+// Returns the maximum value that
+// can be put in a knapsack of capacity W
+int knapSack(int W, int wt[], int val[], int n)
 {
-    const int trigger = 500; // ms
-    int n = 4;
-    const int numDots = 4;
-    const char prompt[] = "Loading";
-    int k = 0;
-    while (k < n)
-    {
-        // Return and clear with spaces, then return and print prompt.
-        printf("\r%*s\r%s", sizeof(prompt) - 1 + numDots, "", prompt);
-        fflush(stdout);
+	int i, w;
+	vector<vector<int> > K(n + 1, vector<int>(W + 1));
 
-        // Print numDots number of dots, one every trigger milliseconds.
-        for (int i = 0; i < numDots; i++)
-        {
-            Sleep(trigger);
-            fputc('.', stdout);
-            fflush(stdout);
-        }
-        k++;
+	// Build table K[][] in bottom up manner
+	for (i = 0; i <= n; i++) {
+		for (w = 0; w <= W; w++) {
+			if (i == 0 || w == 0)
+				K[i][w] = 0;
+			else if (wt[i - 1] <= w)
+				K[i][w] = max(val[i - 1]
+								+ K[i - 1][w - wt[i - 1]],
+							K[i - 1][w]);
+			else
+				K[i][w] = K[i - 1][w];
+		}
+	}
+  for(int i=0;i<n;i++)
+  {
+    for(int j=0;j<W;j++)
+    {cout<<K[i][j]<<" ";
     }
+    cout<<endl;
+  }
+	return K[n][W];
 }
+
+// Driver Code
+int main()
+{
+	int val[] = { 5,6,7,9,12,12,14 };
+	int wt[] = { 2,3,3,4,5,6,7};
+	int W = 15;
+	int n = sizeof(val) / sizeof(val[0]);
+
+	cout << knapSack(W, wt, val, n);
+
+	return 0;
+}
+
+// This code is contributed by Debojyoti Mandal
